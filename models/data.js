@@ -40,8 +40,7 @@ const userSchema = new mongoose.Schema({
     default : true
   },
   user_image :{
-    type: String,
-    required: true
+    type: String
   }
 });
 
