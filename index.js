@@ -14,13 +14,10 @@ app.use(bodyParser.json())
 app.use(express.json());  // Parse incoming JSON requests
 const corsOptions = {
   origin: 'https://final-qr-update.vercel.app', // Frontend URL
-  methods: ['GET', 'POST', 'PUT'], // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-  credentials: true, // Allow cookies (if needed)
+  methods: ['GET', 'POST', 'PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
 };
-
-// Enable CORS with the defined options
-app.use(cors(corsOptions));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
