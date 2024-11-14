@@ -30,6 +30,7 @@ const upload = multer({ storage: storage });
 
 // POST route for storing QR data and creating QR code
 router.post('/qrdata', upload.single('user_image'), async (req, res) => {
+   res.setHeader('Access-Control-Allow-Origin', 'https://final-qr-update.vercel.app');
   const { name, email, work_email, organization, phone, address, youtube_url, facebook_url, linkden_url, twitter_url } = req.body;
 
   try {
