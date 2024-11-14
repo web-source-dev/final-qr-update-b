@@ -12,10 +12,7 @@ app.use(express.json());  // Parse incoming JSON requests
 
 // CORS Configuration
 const corsOptions = {
-  origin: 'https://final-qr-update.vercel.app', // Frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  credentials: true,
+  origin: '*'
 };
 app.use(cors(corsOptions));  // Apply CORS options globally
 app.options('*', cors(corsOptions));  // Enable preflight for all routes
