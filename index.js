@@ -1,29 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require('body-parser')
-
 require('dotenv').config();
 const path = require('path');
 
 // Initialize app
 const app = express();
 
-app.use(bodyParser.json())
 // Middleware
 app.use(express.json());  // Parse incoming JSON requests
+
+// CORS Configuration
 const corsOptions = {
   origin: 'https://final-qr-update.vercel.app', // Frontend URL
-  methods: ['GET', 'POST', 'PUT','DELETE','OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
 };
+app.use(cors(corsOptions));  // Apply CORS options globally
+app.options('*', cors(corsOptions));  // Enable preflight for all routes
+
+// Static directory for uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
-console.log(path.join(__dirname, 'uploads'));  // Log the full path to the uploads directory
-
-
+console.log('Uploads directory path:', path.join(__dirname, 'uploads'));  // Log uploads path for debugging
 
 // MongoDB Connection using Mongoose
 const connectDB = async () => {
@@ -37,7 +36,7 @@ const connectDB = async () => {
     console.log('MongoDB connected with Mongoose...');
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
-    process.exit(1);
+    // Consider adding a reconnection attempt here if needed
   }
 };
 
@@ -48,9 +47,11 @@ connectDB();
 const userRoutes = require('./Routes/userroute');
 app.use('/api', userRoutes);
 
-app.get('/',(req, res) => {
+// Test route
+app.get('/', (req, res) => {
   res.send('Welcome to the QR Code API!');
-})
+});
+
 // Set up port
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
