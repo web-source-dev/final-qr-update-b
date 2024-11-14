@@ -8,6 +8,7 @@ const path = require('path');
 
 const shortid = require('shortid');  // Import shortid
 
+
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
@@ -30,7 +31,6 @@ const upload = multer({ storage: storage });
 
 // POST route for storing QR data and creating QR code
 router.post('/qrdata', upload.single('user_image'), async (req, res) => {
-   res.setHeader('Access-Control-Allow-Origin', 'https://final-qr-update.vercel.app');
   const { name, email, work_email, organization, phone, address, youtube_url, facebook_url, linkden_url, twitter_url } = req.body;
 
   try {
